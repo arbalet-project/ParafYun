@@ -3,10 +3,19 @@
     margin-left:25%;
     margin-right: 25%;
     height: 250px;
+
 }
 
 #timeline{
     border: solid 2px;
     margin:5% 10% 0% 10%;
     height:150px;
+}
+
+#affichageSliders input{
+  transform: rotate(90 deg);
+}
+
+.sliders{
+  border : solid 5px;
 }

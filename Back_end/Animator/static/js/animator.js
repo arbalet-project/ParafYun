@@ -3,6 +3,7 @@ var sliders = [];
 var nbSliders;
 
 function affichageSliders() {
+  resetSliders();
   nbSliders = document.getElementById('nbSliders').value;
   endroitOuAfficher = document.getElementById('affichageSliders');
   sliders = [];
@@ -13,15 +14,21 @@ function affichageSliders() {
     newSlide.id = "slider" + i;
     newSlide.type = "text";
     newSlide.class = "span2";
-    newSlide.value = "0";
-    newSlide['data-slider-min'] = "10";
-    newSlide['data-slider-max'] = "100";
-    newSlide['data-slider-step'] = "5";
-    newSlide['data-slider-value'] = "[250,450]";
+
+    slider_options = {
+      orientation: "vertical",
+      min:10,
+      max:100,
+      step: 0.01,
+      value: [0.7, 1.1],
+      min: 0.0,
+      max: 2.0,
+      handle: "triangle"
+    }
 
     endroitOuAfficher.appendChild(newSlide);
 
-    sliders.push(new Slider("#slider" + i, {orientation : 'vertical'}));
+    sliders.push(new Slider("#slider" + i, slider_options));
 
     var br = document.createElement('br');
 
@@ -31,7 +38,7 @@ function affichageSliders() {
 }
 
 function resetSliders(){
-
+  document.getElementById("affichageSliders").innerHTML = "";
 }
 
 

@@ -58,6 +58,7 @@ TEMPLATES = [
         'DIRS': [
             # Cette ligne ajoute le dossier static/ à la racine du projet
             os.path.join(BASE_DIR, 'static'),
+            
         ],
         'APP_DIRS': True,
         'OPTIONS': {

@@ -44,7 +44,7 @@ function resetSliders(){
 function postData(){
   jQuery(function($){
 
-    jQuery.post("/Sequence", JSON.parse(localStorage.getItem('myStorage')));
+    jQuery.post("/sequence", JSON.parse(localStorage.getItem('myStorage')));
   });
 }
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 {% load static %}
-
+{% csrf_token %}
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,8 +22,9 @@
     </div>
 
     <div id="affichageSliders"></div>
-
+  <form>{% csrf_token %}
     <button id="enregistrer" onclick="postData()"> Enregistrer la séquence </button>
+  </form>
 
     <div id="timeline" >
         <div class=""></div>

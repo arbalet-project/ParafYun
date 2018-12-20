@@ -41,13 +41,22 @@ function resetSliders(){
   document.getElementById("affichageSliders").innerHTML = "";
 }
 
+function postData(){
+  jQuery(function($){
+    var dataToPost = enregistrer();
+
+    jQuery.post("/Sequence", dataToPost);
+  });
+}
+
 
 function enregistrer(){
   var dicoContenu = [];
   var stringBase = "#slider";
 
   for(var i = 0; i < nbSliders; i++){
-    dicoContenu += {"nom" : stringBase + i, "type" : "open", "time" : 0.5};
+    var valSliderActuel = document.getElementById("slider" + i).value;
+    dicoContenu += {"nom" : "stringBase" + i, "type" : "open", "time" : valSliderActuel};
   }
 
   var sequence = {"Sequence" : dicoContenu};

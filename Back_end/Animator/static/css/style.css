@@ -2,12 +2,15 @@
     border: solid 2px;
     margin: auto;
     height: 250px;
+    background-color: rgb(255,235,230);
+
 }
 
 #timeline{
     border: solid 2px;
     margin:5% 10% 0% 10%;
     height:150px;
+    background-color: rgb(255,235,230);
 }
 
 #affichageSliders input{

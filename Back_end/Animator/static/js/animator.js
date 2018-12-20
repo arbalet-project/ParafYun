@@ -43,14 +43,14 @@ function resetSliders(){
 
 function postData(){
   jQuery(function($){
-    var dataToPost = enregistrer();
 
-    jQuery.post("/Sequence", dataToPost);
+    jQuery.post("/Sequence", JSON.parse(localStorage.getItem('myStorage')));
   });
 }
 
 
 function enregistrer(){
+  /*
   var dicoContenu = [];
   var stringBase = "#slider";
 
@@ -59,7 +59,35 @@ function enregistrer(){
     dicoContenu += {"nom" : "stringBase" + i, "type" : "open", "time" : valSliderActuel};
   }
 
-  var sequence = {"Sequence" : dicoContenu};
+  var sequence = null;
+
+  jQuery(function($){
+      sequence = jQuery.parseJSON({"Sequence" : dicoContenu});
+  });
 
   return sequence;
+
+  */
+
+   localStorage.setItem('myStorage', writeString())
 }
+
+function writeString(){
+ var sequence
+
+ for(var i = 0; i < nbSliders; i++){
+
+   var valSliderActuel = document.getElementById("slider" + i).value;
+
+   if(valSliderActuel > 0.1 && i != nbSliders - 1){
+     sequence += '{ "name" : "valve"' + i + ', "type" : "open", time : "' + valSliderActuel + '" },';
+   }else if(valSliderActuel <= 0.1 && i != nbSliders -1){
+     sequence += '{ "name" : "valve"' + i + ', "type" : "closed", time : "' + valSliderActuel + '" },';
+   }else if(valSliderActuel > 0.1 && i == nbSliders - 1){
+     sequence += '{ "name" : "valve"' + i + ', "type" : "open", time : "' + valSliderActuel + '" }]';
+   }else if(valSliderActuel <= 0.1 && i == nbSliders -1){
+     sequence += '{ "name" : "valve"' + i + ', "type" : "closed", time : "' + valSliderActuel + '" }]';
+   }
+ }
+ return sequence;
+};

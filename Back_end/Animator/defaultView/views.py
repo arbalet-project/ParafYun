@@ -2,9 +2,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.middleware.csrf import get_token
-from django.template import RequestContext
-
+from django.views.decorators.csrf import csrf_exempt
 
 def defaultView_index(request):
     #csfr_token = get_token(request)
@@ -13,18 +11,18 @@ def defaultView_index(request):
     #return JsonResponse({'token': csfr_token, 'sessionid' : request.session.session_key})
     return render(request, 'index.html')
 
+@csrf_exempt
 def sequence(request):
-    raise Exception("1111111")
     if request.method == "GET":
-
-        response_data = {}
+        response_data = {"pi": 3.1415}
+        # La réponse doit être formatée ainsi :
+        # {"sequence" : [{"name": "valve1", "type": "open", time: 0.0}, {"name": "valve2", "type" : "open", time: 0.5} etc...]}
         return JsonResponse(response_data)
     elif request.method == "POST":
-        print (1)
-        raise Exception("1111111")
-        response_data={"oui"}
-        return RequestContext(request,JsonResponse(response_data))
-    else:
-        print (2)
-        raise Exception("22222")
+        # Récupérer l'animation provenant de la requête au format JSON
+        # puis la substituer à celle enregistrée de la base de données 
         return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=405)
+
+

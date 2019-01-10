@@ -86,10 +86,11 @@ function calculDist(valSliderActuel){
 }
 
 function getData(){
-  var sequence = jQuery.parseJSON(document).ready(function(){
-    $.getJSON("/sequence");
+  var sequence = jQuery.ready(function(){
+    $.getJSON("/sequence?num_valves=10", function(data,status,xhr){
+      readSequence(data);
+    });
   });
-  readSequence(sequence);
 }
 
 function readSequence(sequence){

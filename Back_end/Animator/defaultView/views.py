@@ -25,15 +25,15 @@ def sequence(request):
             list_valves=[]
             num_valves= int(request.GET.get("num_valves",12))
             for j in range (num_valves):
-                list_valves.append ({"name": "valve"+ str (j), "type": "open","time":0.5})
-                list_valves.append ({"name": "valve"+ str (j), "type": "close","time" :0.5})
+                list_valves.append ({"name": "valve" + str (j), "type": "open","time":0.5})
+                list_valves.append ({"name": "valve" + str (j), "type": "close","time" :1.5})
             response_data ={"sequence" : list_valves}
             with open ("sequence.json","w") as P:
                 json.dump (response_data,P)
             return JsonResponse(response_data)
     elif request.method == "POST":
         # Récupérer l'animation provenant de la requête au format JSON
-        Raw_data= request.body
+        Raw_data= json.loads(request.body.decode ("utf-8"))
         # puis enregistrer dans le fichier
         with open ("sequence.json","w") as P:
             json.dump (Raw_data,P)

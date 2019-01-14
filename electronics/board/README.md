@@ -1,0 +1,9 @@
+# BOM
+
+Model / Package
+IRF7404 / SO-8
+ST485 / SO-8
+ULN2803A / DW R-PDSO-G18
+Crystal TXC HC-495
+LMV7805 / DGK S-PDSO-G8
+

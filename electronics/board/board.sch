@@ -1461,17 +1461,6 @@ $EndComp
 Wire Wire Line
 	8200 1850 8650 1850
 $Comp
-L Connector:Screw_Terminal_01x01 J23
-U 1 1 5C537729
-P 6800 2700
-F 0 "J23" H 6880 2742 50  0000 L CNN
-F 1 "Screw_Terminal_01x01" H 6880 2651 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5005-5009_Compact" H 6800 2700 50  0001 C CNN
-F 3 "~" H 6800 2700 50  0001 C CNN
-	1    6800 2700
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector:Screw_Terminal_01x01 J25
 U 1 1 5C546B42
 P 6400 4400
@@ -1504,8 +1493,6 @@ F 3 "~" H 9600 750 50  0001 C CNN
 	1    9600 750 
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	6200 2700 6600 2700
 $Comp
 L power:PWR_FLAG #FLG0102
 U 1 1 5C5B860D
@@ -1637,4 +1624,5 @@ Wire Wire Line
 Wire Wire Line
 	1000 1050 5250 1050
 Connection ~ 9150 1050
+NoConn ~ 6200 2700
 $EndSCHEMATC

@@ -37,17 +37,6 @@ F 3 "http://www.ti.com/lit/ds/symlink/uln2803a.pdf" H 8800 4900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Regulator_Linear:LM7805_TO220 U3
-U 1 1 5BF587E9
-P 8000 1050
-F 0 "U3" H 8000 1200 50  0000 C CNN
-F 1 "LM7805_TO220" H 8000 1291 50  0000 C CNN
-F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 8000 1275 50  0001 C CIN
-F 3 "http://www.fairchildsemi.com/ds/LM/LM7805.pdf" H 8000 1000 50  0001 C CNN
-	1    8000 1050
-	-1   0    0    1   
-$EndComp
-$Comp
 L Interface_UART:ST485EBDR U4
 U 1 1 5BF588F9
 P 8650 2250
@@ -1641,4 +1630,15 @@ Wire Wire Line
 Connection ~ 3400 6650
 Wire Wire Line
 	3400 6650 3600 6650
+$Comp
+L Regulator_Linear:NCP1117-5.0_TO252 U3
+U 1 1 5C8808F5
+P 8000 1050
+F 0 "U3" H 8000 1200 50  0000 C CNN
+F 1 "NCP1117-5.0_TO252" H 8000 1291 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TO-252-2" H 8000 1275 50  0001 C CNN
+F 3 "http://www.onsemi.com/pub_link/Collateral/NCP1117-D.PDF" H 8000 1050 50  0001 C CNN
+	1    8000 1050
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC

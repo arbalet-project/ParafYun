@@ -492,8 +492,6 @@ Wire Wire Line
 	950  6400 1250 6400
 Wire Wire Line
 	650  6800 950  6800
-Wire Wire Line
-	1500 1050 1000 1050
 $Comp
 L power:+5V #PWR04
 U 1 1 5C1D5277
@@ -518,17 +516,6 @@ F 1 "+12V" H 8565 1123 50  0000 C CNN
 F 2 "" H 8550 950 50  0001 C CNN
 F 3 "" H 8550 950 50  0001 C CNN
 	1    8550 950 
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+12V #PWR07
-U 1 1 5C1E1209
-P 1500 1050
-F 0 "#PWR07" H 1500 900 50  0001 C CNN
-F 1 "+12V" H 1515 1223 50  0000 C CNN
-F 2 "" H 1500 1050 50  0001 C CNN
-F 3 "" H 1500 1050 50  0001 C CNN
-	1    1500 1050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1641,4 +1628,13 @@ F 3 "http://www.onsemi.com/pub_link/Collateral/NCP1117-D.PDF" H 8000 1050 50  00
 	1    8000 1050
 	-1   0    0    1   
 $EndComp
+Wire Wire Line
+	5250 1050 5250 1400
+Wire Wire Line
+	5250 1400 9150 1400
+Wire Wire Line
+	9150 1400 9150 1050
+Wire Wire Line
+	1000 1050 5250 1050
+Connection ~ 9150 1050
 $EndSCHEMATC

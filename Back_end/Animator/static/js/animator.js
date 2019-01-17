@@ -1,5 +1,4 @@
 var sliders = [];
-
 var nbSliders;
 
 function affichageSliders() {
@@ -41,37 +40,24 @@ function resetSliders(){
   document.getElementById("affichageSliders").innerHTML = "";
 }
 
-function postData(){
-  console.log("postData lancé");
-  console.log(localStorage.getItem('myStorage'));
-
-  jQuery(function($){
-    jQuery.post("/sequence", JSON.parse(localStorage.getItem('myStorage')));
-  });
-}
-
 function saveSequence(){
-  localStorage.setItem('myStorage', writeString());
-  postData();
-}
+     var events = [];
 
-function writeString(){
- var sequence = "{\"sequence\": [";
+     for(var i = 0; i < nbSliders; i++){
+       var valSliderActuel = document.getElementById("slider" + i).value;
+       var speed = calculTps(calculDist(valSliderActuel));
+       events.push({"name": "valve" + i, "type": "open", "time": speed});
+       events.push({"name": "valve" + i, "type": "close", "time": speed});
 
- for(var i = 0; i < nbSliders; i++){
-   var valSliderActuel = document.getElementById("slider" + i).value;
-   var speed = calculTps(calculDist(valSliderActuel));
-   if(i != nbSliders - 1){
-     sequence += "{\"name\": \"valve" + i + "\", \"type\": \"open\", \"time\": \"" + speed + "\"}, ";
-   }else if(i != nbSliders -1){
-     sequence += "{\"name\": \"valve" + i + "\", \"type\": \"closed\", \"time\": \"" + speed + "\"}, ";
-   }else if(i == nbSliders - 1){
-     sequence += "{\"name\": \"valve" + i + "\", \"type\": \"open\", \"time\": \"" + speed + "\"}]}";
-   }else if(i == nbSliders -1){
-     sequence += "{\"name\": \"valve" + i + "\", \"type\": \"closed\", \"time\": \"" + speed + "\"}]}";
-   }
- }
- return sequence;
+    }
+    mySequence = {sequence: events};
+    axios.post('/sequence', mySequence)
+      .then(function (response) {
+        console.log("Séquence mise à jour avec succès");
+      })
+      .catch(function (error) {
+        console.log("Erreur de mise à jour de la séquence");
+      });
 };
 
 function calculTps(dist){
@@ -86,25 +72,33 @@ function calculDist(valSliderActuel){
 }
 
 function getData(){
-  var sequence = jQuery.ready(function(){
-    $.getJSON("/sequence?num_valves=10", function(data,status,xhr){
-      readSequence(data);
-    });
-  });
+  axios.get('/sequence', {
+    params: {
+      num_valves: 10
+    }
+  })
+  .then(function (response) {
+    console.log("Séquence reçue avec succès");
+    readSequence(response);
+  })
+  /*.catch(function (error) {
+    console.log("Erreur de récupération de la séquence");
+  })
+
 }
 
 function readSequence(sequence){
   resetSliders();
   var listEvent = sequence["sequence"];
 
-  for (var i = 0; i < listEvent.lenght; i++) {
+  for (var i = 0; i < listEvent.length; i++) {
     var valeurs = listEvent[i];
     var newSlide = document.createElement('input');
 
     newSlide.id = "slider" + i;
     newSlide.type = "text";
     newSlide.class = "span2";
-
+      console.log("5");
     slider_options = {
       orientation: "vertical",
       min:10,

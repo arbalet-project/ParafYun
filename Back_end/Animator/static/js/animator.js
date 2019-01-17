@@ -45,9 +45,11 @@ function saveSequence(){
 
      for(var i = 0; i < nbSliders; i++){
        var valSliderActuel = document.getElementById("slider" + i).value;
-       var speed = calculTps(calculDist(valSliderActuel));
-       events.push({"name": "valve" + i, "type": "open", "time": speed});
-       events.push({"name": "valve" + i, "type": "close", "time": speed});
+       var emplacementVirgule = valSliderActuel.indexOf(',');
+       var tempsOuverture = calculTps(valSliderActuel.slice(1,emplacementVirgule));
+       var tempsFermeture = calculTps(valSliderActuel.slice(emplacementVirgule+1,valSliderActuel.length));
+       events.push({"name": "valve" + i, "type": "open", "time": tempsOuverture});
+       events.push({"name": "valve" + i, "type": "close", "time": tempsFermeture});
 
     }
     mySequence = {sequence: events};
@@ -64,13 +66,6 @@ function calculTps(dist){
   return Math.sqrt((2*dist)/9.81);
 }
 
-function calculDist(valSliderActuel){
-  var emplacementVirgule = valSliderActuel.indexOf(',');
-  var premiereValeur = valSliderActuel.slice(0, emplacementVirgule);
-  var secondeValeur = valSliderActuel.slice(emplacementVirgule+1, valSliderActuel.lenght);
-  return secondeValeur - premiereValeur
-}
-
 function getData(){
   axios.get('/sequence', {
     params: {
@@ -79,9 +74,9 @@ function getData(){
   })
   .then(function (response) {
     console.log("Séquence reçue avec succès");
-    readSequence(response);
+    readSequence(JSON.parse(response.request.response));
   })
-  /*.catch(function (error) {
+  .catch(function (error) {
     console.log("Erreur de récupération de la séquence");
   })
 
@@ -89,25 +84,46 @@ function getData(){
 
 function readSequence(sequence){
   resetSliders();
+
   var listEvent = sequence["sequence"];
 
   for (var i = 0; i < listEvent.length; i++) {
-    var valeurs = listEvent[i];
+    var valeursOpen = listEvent[i];
+    var valeursClose = listEvent[i+1];
+
+    distOpen = calculDistDepuisTps(valeursOpen["time"]);
+    console.log(distOpen);
+    distClose = calculDistDepuisTps(valeursClose["time"]);
+    console.log(distClose);
     var newSlide = document.createElement('input');
 
-    newSlide.id = "slider" + i;
+    var numeroSlider = valeursOpen["name"].slice(valeursOpen["name"].indexOf('e')+1,valeursOpen["name"].length);
+
+    newSlide.id = "slider" + numeroSlider;
     newSlide.type = "text";
     newSlide.class = "span2";
-      console.log("5");
     slider_options = {
       orientation: "vertical",
       min:10,
       max:100,
       step: 0.01,
-      value: [valeurs["time"]],
+      value: [distOpen,distClose],
       min: 0.0,
       max: 2.0,
       handle: "triangle"
     }
+    document.getElementById('affichageSliders').appendChild(newSlide);
+
+    sliders.push(new Slider("#slider" + numeroSlider, slider_options));
+
+    var br = document.createElement('br');
+
+    newSlide.appendChild(br);
+
+    i++;
   }
+}
+
+function calculDistDepuisTps(tps){
+  return (((tps*tps)*9.81)/2);
 }
